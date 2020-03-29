@@ -8,6 +8,8 @@ const fiveHundred = require('../lib/middleware/500.js');
 const req = {};
 const res = {};
 
+console.log = jest.fn();
+
 const res404 = {
   send: function(msg) {
     expect(msg).toEqual('route not supported');
