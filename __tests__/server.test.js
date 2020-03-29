@@ -1,12 +1,11 @@
 'use strict';
 
 const supergoose = require('@code-fellows/supergoose');
-
-const server = require('../server.js');
+const server = require('../lib/server.js');
 const agent = supergoose(server.apiServer);
 
-const categories = require('../models/categories/categories-collection.js');
-const products = require('../models/products/products-collection.js');
+const categories = require('../lib/models/categories/categories-collection.js');
+const products = require('../lib/models/products/products-collection.js');
 
 describe('API routes for categories', () => {
   let testObj1;
@@ -33,6 +32,8 @@ describe('API routes for categories', () => {
     };
 
     jest.spyOn(global.console, 'log');
+    console.log = jest.fn();
+    console.error = jest.fn();
     await categories.schema.deleteMany({}).exec();
   });
 
@@ -43,12 +44,6 @@ describe('API routes for categories', () => {
     Object.keys(testObj1).forEach(key => {
       expect(testObj1[key]).toEqual(createRes.body[key]);
     });
-  });
-
-  it('can catch a post error and console error it', async () => {
-    jest.spyOn(global.console, 'error');
-    await agent.post('/api/v1/categories').send(badObj);
-    expect(console.error).toHaveBeenCalled();
   });
 
   it('can get all categories', async () => {
@@ -108,6 +103,82 @@ describe('API routes for categories', () => {
     expect(deleteRes.statusCode).toBe(204);
     const getOneRes = await agent.get(`/api/v1/categories/${createRes._id}`);
     expect(getOneRes.body).toEqual(null);
+  });
+});
+
+describe('API error routes for categories', () => {
+  let badObj = {
+    name: false,
+    badProp: 12341234,
+    description: 'BLOW UP YOUR API!',
+    someOtherProp: true,
+  };
+
+  let testObj1 = {
+    name: 'mythical_weapons',
+    display_name: 'mythical weapons',
+    description: 'smite thee!',
+  };
+
+  beforeEach(async () => {
+    jest.spyOn(global.console, 'error');
+  });
+
+  afterEach(async () => {
+    await categories.schema.deleteMany({}).exec();
+  });
+
+  it('can catch a post error and console error it', async () => {
+    jest.spyOn(global.console, 'error');
+    await agent.post('/api/v1/categories').send(badObj);
+    expect(console.error).toHaveBeenCalled();
+  });
+
+  it('can catch a get all error and console error it', async () => {
+    categories.get = jest.fn(async () => {
+      throw 'dummy error';
+    });
+    const createRes = await agent.get('/api/v1/categories');
+    expect(console.error).toHaveBeenCalled();
+    expect(createRes.body.error).toEqual('dummy error');
+  });
+
+  it('can catch a get one error and console error it', async () => {
+    categories.get = jest.fn(async () => {
+      throw 'dummy error';
+    });
+    const getOneRes = await agent.get(
+      `/api/v1/categories/360noscope420blazeit!!!111`,
+    );
+    expect(getOneRes.statusCode).toBe(500);
+    expect(console.error).toHaveBeenCalled();
+    expect(getOneRes.body.error).toEqual('dummy error');
+  });
+
+  it('can catch an update error and console error it', async () => {
+    categories.update = jest.fn(async () => {
+      throw 'dummy error';
+    });
+
+    const createRes = await categories.schema(testObj1).save();
+    const updateRes = await agent
+      .put(`/api/v1/categories/${createRes._id}`)
+      .send(badObj);
+
+    expect(updateRes.statusCode).toBe(500);
+    expect(console.error).toHaveBeenCalled();
+  });
+
+  it('can catch a delete error and console error it', async () => {
+    categories.delete = jest.fn(async () => {
+      throw 'dummy error';
+    });
+    const createRes = await categories.schema(testObj1).save();
+    const deleteRes = await agent.delete(`/api/v1/categories/${createRes._id}`);
+    expect(deleteRes.statusCode).toBe(500);
+    expect(console.error).toHaveBeenCalled();
+    // const getOneRes = await agent.get(`/api/v1/categories/${createRes._id}`);
+    // expect(getOneRes.body).not.toEqual(null);
   });
 });
 

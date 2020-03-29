@@ -1,11 +1,9 @@
 'use strict';
 
-const timestamp = require('../middleware/timestamp');
-const logger = require('../middleware/logger.js');
-const fourOhFour = require('../middleware/404');
-const fiveHundred = require('../middleware/500.js');
-
-// const modelFinder = require('../middleware/model-finder.js');
+const timestamp = require('../lib/middleware/timestamp');
+const logger = require('../lib/middleware/logger.js');
+const fourOhFour = require('../lib/middleware/404');
+const fiveHundred = require('../lib/middleware/500.js');
 
 const req = {};
 const res = {};
