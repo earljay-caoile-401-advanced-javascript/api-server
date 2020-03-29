@@ -13,6 +13,8 @@ describe('API routes for products', () => {
   beforeEach(async () => {
     testObj1 = {
       category_id: 'mythical_weapons',
+      name: 'mjolnir',
+      display_name: 'Mjolnir',
       price: 9999,
       weight: 42.3,
       quantity_in_stock: 1,
@@ -20,6 +22,8 @@ describe('API routes for products', () => {
 
     testObj2 = {
       category_id: 'household_goods',
+      name: 'adhesive_medical_strips',
+      display_name: 'Adhesive Medical Strips',
       price: 3,
       weight: 0.5,
       quantity_in_stock: 111,
@@ -89,6 +93,8 @@ describe('API routes for products', () => {
   it('can update a product', async () => {
     const editObj = {
       category_id: 'uber_weapons',
+      name: 'edited_mjolnir',
+      display_name: 'Edited Mjolnir',
       price: 333,
       weight: 42.5,
       quantity_in_stock: 3,
