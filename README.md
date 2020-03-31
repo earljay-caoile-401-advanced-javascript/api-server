@@ -1,4 +1,4 @@
-# LAB: Express (07)
+# LAB - Express Routing & Connected API (08)
 
 ## Create an Express API Server
 
@@ -6,8 +6,8 @@
 
 ### Links and Resources
 
-- [submission PR](https://github.com/js-401n15-eoc/lab-07/pull/2)
-- [GitHub Actions](https://github.com/js-401n15-eoc/lab-07/actions)
+- [submission PR](https://github.com/earljay-caoile-401-advanced-javascript/api-server/pull/2)
+- [GitHub Actions](https://github.com/earljay-caoile-401-advanced-javascript/api-server/actions)
 
 #### Documentation
 
@@ -26,4 +26,4 @@
 
 #### UML
 
-![UML Image](lab-07-UML.png "uml diagram")
+![UML Image](lab-08-uml.png "uml diagram")
