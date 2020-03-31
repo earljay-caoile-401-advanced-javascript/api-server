@@ -6,7 +6,10 @@ const server = require('../lib/server.js');
 
 const agent = supergoose(server.apiServer);
 const categories = require('../lib/models/categories/categories.js');
-const uuid = require('uuid/v4');
+const uuid = require('uuid').v4;
+
+console.log = jest.fn();
+console.error = jest.fn();
 
 describe('API routes for categories', () => {
   let testObj1;
