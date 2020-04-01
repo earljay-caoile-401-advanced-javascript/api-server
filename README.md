@@ -28,6 +28,13 @@
 
 - Testing command: `npm test` from root directory
 
+### Web Server Visual Tests
+
+- Open this [React Application](https://w638oyk7o8.csb.app/)
+- In the form at the top of the page, enter the URL to your API Server
+- This server is configured to use the routes noted in the first lab requirement
+- If this lab is working, this app will show your API Data!
+
 #### UML
 
 ![UML Image](lab-07-uml.png "uml diagram")
