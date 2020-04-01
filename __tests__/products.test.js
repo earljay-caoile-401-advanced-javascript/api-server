@@ -8,8 +8,8 @@ const agent = supergoose(server.apiServer);
 const products = require('../lib/models/products/products.js');
 const uuid = require('uuid').v4;
 
-// console.log = jest.fn();
-// console.error = jest.fn();
+console.log = jest.fn();
+console.error = jest.fn();
 
 describe('API routes for products', () => {
   let testObj1;
@@ -81,8 +81,6 @@ describe('API routes for products', () => {
           record => record.id === testObj1.id,
         );
 
-        console.log('dat response body id:', response.body[0].id);
-        console.log('how about dat db?', products.database[0].id);
         expect(response.body).toEqual(dbFilter);
         Object.keys(testObj1).forEach(key => {
           expect(products.database[key]).toEqual(response.body[key]);
