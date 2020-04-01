@@ -12,25 +12,30 @@ console.log = jest.fn();
 console.error = jest.fn();
 
 describe('API routes for products', () => {
-  let testObj1;
-  let testObj2;
+  const testObj1 = {
+    category: 'mythical_weapons',
+    name: 'mjolnir',
+    display_name: 'Mjolnir',
+    description:
+      "Thor's hammer. It can only be wielded by those who are worthy!",
+  };
+
+  const testObj2 = {
+    category: 'mythical_weapons',
+    name: 'gungnir',
+    display_name: 'Gungnir',
+    description: "Odin's spear. It supposedly doesn't miss...",
+  };
+
+  const testObj3 = {
+    category: 'health_house_baby',
+    name: 'adhesive_medical_strips',
+    display_name: 'Adhesive Medical Strips',
+    description:
+      "We can't use band-aid since that's a copyrighted compoany name, but that's pretty much what it is...",
+  };
 
   beforeEach(() => {
-    testObj1 = {
-      category: 'mythical_weapons',
-      name: 'mjolnir',
-      display_name: 'Mjolnir',
-      description:
-        "Thor's hammer. It can only be wielded by those who are worthy!",
-    };
-
-    testObj2 = {
-      category: 'mythical_weapons',
-      name: 'gungnir',
-      display_name: 'Gungnir',
-      description: "Odin's spear. It supposedly doesn't miss...",
-    };
-
     products.database = [];
   });
 
@@ -53,9 +58,33 @@ describe('API routes for products', () => {
     products.database.push(testObj1);
     testObj2.id = uuid();
     products.database.push(testObj2);
+    testObj3.id = uuid();
+    products.database.push(testObj3);
 
     return agent
       .get('/api/v1/products')
+      .then(response => {
+        expect(response.statusCode).toBe(200);
+        expect(response.body.count).toBe(3);
+        for (let index in response.body.results) {
+          Object.keys(testObj1).forEach(key => {
+            expect(products.database[index][key]).toEqual(
+              response.body.results[index][key],
+            );
+          });
+        }
+      })
+      .catch(error => expect(error).not.toBeDefined());
+  });
+
+  it('can get all products and filter with a query', () => {
+    testObj1.id = uuid();
+    products.database.push(testObj1);
+    testObj2.id = uuid();
+    products.database.push(testObj2);
+
+    return agent
+      .get(`/api/v1/products?category=${testObj1.category}`)
       .then(response => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(2);

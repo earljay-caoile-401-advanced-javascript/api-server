@@ -12,22 +12,19 @@ console.log = jest.fn();
 console.error = jest.fn();
 
 describe('API routes for categories', () => {
-  let testObj1;
-  let testObj2;
+  const testObj1 = {
+    name: 'mythical_weapons',
+    display_name: 'mythical weapons',
+    description: 'smite thee!',
+  };
+
+  const testObj2 = {
+    name: 'household_goods',
+    display_name: 'household goods',
+    description: 'stuff fo yo crib!',
+  };
 
   beforeEach(() => {
-    testObj1 = {
-      name: 'mythical_weapons',
-      display_name: 'mythical weapons',
-      description: 'smite thee!',
-    };
-
-    testObj2 = {
-      name: 'household_goods',
-      display_name: 'household goods',
-      description: 'stuff fo yo crib!',
-    };
-
     categories.database = [];
   });
 
@@ -56,6 +53,28 @@ describe('API routes for categories', () => {
       .then(response => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(2);
+        for (let index in response.body.results) {
+          Object.keys(testObj1).forEach(key => {
+            expect(categories.database[index][key]).toEqual(
+              response.body.results[index][key],
+            );
+          });
+        }
+      })
+      .catch(error => expect(error).not.toBeDefined());
+  });
+
+  it('can get all categories and filter with a query', () => {
+    testObj1.id = uuid();
+    categories.database.push(testObj1);
+    testObj2.id = uuid();
+    categories.database.push(testObj2);
+
+    return agent
+      .get(`/api/v1/categories?name=${testObj1.name}`)
+      .then(response => {
+        expect(response.statusCode).toBe(200);
+        expect(response.body.count).toBe(1);
         for (let index in response.body.results) {
           Object.keys(testObj1).forEach(key => {
             expect(categories.database[index][key]).toEqual(
