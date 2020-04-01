@@ -17,17 +17,18 @@ describe('API routes for products', () => {
 
   beforeEach(() => {
     testObj1 = {
-      category_id: 'mythical_weapons',
-      price: 9999,
-      weight: 42.3,
-      quantity_in_stock: 1,
+      category: 'mythical_weapons',
+      name: 'mjolnir',
+      display_name: 'Mjolnir',
+      description:
+        "Thor's hammer. It can only be wielded by those who are worthy!",
     };
 
     testObj2 = {
-      category_id: 'household_goods',
-      price: 3,
-      weight: 0.5,
-      quantity_in_stock: 111,
+      category: 'mythical_weapons',
+      name: 'gungnir',
+      display_name: 'Gungnir',
+      description: "Odin's spear. It supposedly doesn't miss...",
     };
 
     products.database = [];
@@ -95,10 +96,10 @@ describe('API routes for products', () => {
     testObj1.id = uuid();
     products.database.push(testObj1);
     const editObj = {
-      category_id: 'mythical_weapons',
-      price: 3333,
-      weight: 42,
-      quantity_in_stock: 2,
+      category: 'mythical_weapons_edited',
+      name: 'mjolnir_edited',
+      display_name: 'Mjolnir!!!!!!!!!oneoneone',
+      description: 'Edited the description! You are not worthy!',
     };
 
     return agent
@@ -127,10 +128,11 @@ describe('API routes for products', () => {
 
 describe('API error routes for products', () => {
   let testObj1 = {
-    category_id: 'mythical_weapons',
-    price: 9999,
-    weight: 42.3,
-    quantity_in_stock: 1,
+    category: 'mythical_weapons',
+    name: 'mjolnir',
+    display_name: 'Mjolnir',
+    description:
+      "Thor's hammer. It can only be wielded by those who are worthy!",
   };
 
   let badObj = {
