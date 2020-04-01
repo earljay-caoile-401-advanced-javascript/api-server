@@ -4,11 +4,17 @@ const timestamp = require('../lib/middleware/timestamp');
 const logger = require('../lib/middleware/logger.js');
 const fourOhFour = require('../lib/middleware/404');
 const fiveHundred = require('../lib/middleware/500.js');
+const mockAuth = require('../lib/middleware/mock-auth.js');
 
-const req = {};
-const res = {};
+let req = {};
+let res = {};
 
 console.log = jest.fn();
+
+beforeEach(() => {
+  res = {};
+  req = {};
+});
 
 const res404 = {
   send: function(msg) {
@@ -62,5 +68,29 @@ describe('logger middleware', () => {
     logger(req, res, next);
     expect(console.log).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();
+  });
+});
+
+describe('mock-auth middleware', () => {
+  beforeEach(() => {
+    req.params = {};
+  });
+
+  it('works', () => {
+    req.params.authenticated = true;
+    mockAuth(req, res, next);
+    expect(console.log).toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('works without params.authenticated assignment', () => {
+    mockAuth(req, res, next);
+    expect(console.log).toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('throws', () => {
+    req.params.authenticated = false;
+    expect(() => mockAuth(req, res, next)).toThrow();
   });
 });
