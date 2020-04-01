@@ -8,8 +8,8 @@ const agent = supergoose(server.apiServer);
 const products = require('../lib/models/products/products.js');
 const uuid = require('uuid').v4;
 
-console.log = jest.fn();
-console.error = jest.fn();
+// console.log = jest.fn();
+// console.error = jest.fn();
 
 describe('API routes for products', () => {
   let testObj1;
@@ -77,8 +77,17 @@ describe('API routes for products', () => {
       .get(`/api/v1/products/${testObj1.id}`)
       .then(response => {
         expect(response.statusCode).toBe(200);
+        const dbFilter = products.database.filter(
+          record => record.id === testObj1.id,
+        );
+
+        console.log('dat response body id:', response.body[0].id);
+        console.log('how about dat db?', products.database[0].id);
+        expect(response.body).toEqual(dbFilter);
         Object.keys(testObj1).forEach(key => {
           expect(products.database[key]).toEqual(response.body[key]);
+          expect(response.body[key]).toEqual(dbFilter[key]);
+          expect(products.database[key]).toEqual(dbFilter[key]);
         });
       })
       .catch(error => expect(error).not.toBeDefined());
@@ -166,15 +175,13 @@ describe('API error routes for products', () => {
   });
 
   it('can catch an update error and console error it', async () => {
-    products.update = jest.fn(async () => {
-      throw 'dummy error';
-    });
     const createRes = await agent.post('/api/v1/products').send(badObj);
     const updateRes = await agent
       .put(`/api/v1/products/${createRes._id}`)
       .send(badObj);
     expect(updateRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
+    expect(updateRes.body.error).toEqual('Invalid object');
   });
 
   it('can catch a delete error and console error it', async () => {

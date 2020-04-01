@@ -75,8 +75,15 @@ describe('API routes for categories', () => {
       .get(`/api/v1/categories/${testObj1.id}`)
       .then(response => {
         expect(response.statusCode).toBe(200);
+        const dbFilter = categories.database.filter(
+          record => record.id === testObj1.id,
+        );
+
+        expect(response.body).toEqual(dbFilter);
         Object.keys(testObj1).forEach(key => {
           expect(categories.database[key]).toEqual(response.body[key]);
+          expect(response.body[key]).toEqual(dbFilter[key]);
+          expect(categories.database[key]).toEqual(dbFilter[key]);
         });
       })
       .catch(error => expect(error).not.toBeDefined());
@@ -163,15 +170,13 @@ describe('API error routes for categories', () => {
   });
 
   it('can catch an update error and console error it', async () => {
-    categories.update = jest.fn(async () => {
-      throw 'dummy error';
-    });
     const createRes = await agent.post('/api/v1/categories').send(badObj);
     const updateRes = await agent
       .put(`/api/v1/categories/${createRes._id}`)
       .send(badObj);
     expect(updateRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
+    expect(updateRes.body.error).toEqual('Invalid object');
   });
 
   it('can catch a delete error and console error it', async () => {
