@@ -43,21 +43,21 @@
     },
     {
       "category": "electronics",
-      "name": "AMD_Ryzen_9_3950X",
+      "name": "amd_ryzen_9_3950x",
       "display_name": "AMD Ryzen 9 3950X",
       "description": "open cans for dat muzak!!!1oneone",
       "id": "4"
     },
     {
       "category": "electronics",
-      "name": "Intel_Core_i9_9900K",
+      "name": "intel_core_i9_9900k",
       "display_name": "Intel Core i9-9900k",
       "description": "That's a funny way to spell 'Shintel'!",
       "id": "5"
     },
     {
       "category": "electronics",
-      "name": "Sennheiser_HD_650",
+      "name": "sennheiser_hd_650",
       "display_name": "Sennheiser HD 650",
       "description": "open cans for dat muzak",
       "id": "6"
