@@ -5,7 +5,7 @@ const supergoose = require('@code-fellows/supergoose');
 const server = require('../lib/server.js');
 
 const agent = supergoose(server.apiServer);
-const products = require('../lib/models/products/products.js');
+const products = require('../lib/models/products.js');
 const uuid = require('uuid').v4;
 
 console.log = jest.fn();
