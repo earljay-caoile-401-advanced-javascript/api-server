@@ -30,4 +30,4 @@
 
 #### UML
 
-![UML Image](lab-07-UML.png "uml diagram")
+![UML Image](lab-07-uml.png "uml diagram")
