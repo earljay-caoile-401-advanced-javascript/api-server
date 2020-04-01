@@ -1,0 +1,66 @@
+{
+  "categories": [
+    {
+      "name": "mythical_weapons",
+      "display_name": "Mythical Weapons",
+      "description": "I shall smite thee!",
+      "id": "1"
+    },
+    {
+      "name": "health_house_baby",
+      "display_name": "Health, Household, and Baby Care",
+      "description": "Stuff fo yo crib!",
+      "id": "2"
+    },
+    {
+      "name": "electronics",
+      "display_name": "Electronics",
+      "description": "Beep boop bzzt!",
+      "id": "3"
+    }
+  ],
+  "products": [
+    {
+      "category": "mythical_weapons",
+      "name": "mjolnir",
+      "display_name": "Mjolnir",
+      "description": "Thor's hammer. It can only be wielded by those who are worthy!",
+      "id": "1"
+    },
+    {
+      "category": "mythical_weapons",
+      "name": "gungnir",
+      "display_name": "Gungnir",
+      "description": "Odin's spear. It supposedly doesn't miss...",
+      "id": "2"
+    },
+    {
+      "category": "health_house_baby",
+      "name": "adhesive_medical_strips",
+      "display_name": "Adhesive Medical Strips",
+      "description": "We can't use band-aid since that's a copyrighted compoany name, but that's pretty much what it is...",
+      "id": "3"
+    },
+    {
+      "category": "electronics",
+      "name": "AMD_Ryzen_9_3950X",
+      "display_name": "AMD Ryzen 9 3950X",
+      "description": "open cans for dat muzak!!!1oneone",
+      "id": "4"
+    },
+    {
+      "category": "electronics",
+      "name": "Intel_Core_i9_9900K",
+      "display_name": "Intel Core i9-9900k",
+      "description": "That's a funny way to spell 'Shintel'!",
+      "id": "5"
+    },
+    {
+      "category": "electronics",
+      "name": "Sennheiser_HD_650",
+      "display_name": "Sennheiser HD 650",
+      "description": "open cans for dat muzak",
+      "id": "6"
+    }
+  ]
+}
