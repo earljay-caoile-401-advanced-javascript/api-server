@@ -6,32 +6,28 @@ const agent = supergoose(server.apiServer);
 const categories = require('../lib/models/categories/categories-collection.js');
 
 describe('API routes for categories', () => {
-  let testObj1;
-  let testObj2;
-  let badObj;
+  const testObj1 = {
+    name: 'mythical_weapons',
+    display_name: 'mythical weapons',
+    description: 'smite thee!',
+  };
+
+  const testObj2 = {
+    name: 'household_goods',
+    display_name: 'household goods',
+    description: 'stuff fo yo crib!',
+  };
+
+  const badObj = {
+    badProp: 12341234,
+    description: 'BLOW UP YOUR API!',
+    someOtherProp: true,
+  };
 
   beforeEach(async () => {
-    testObj1 = {
-      name: 'mythical_weapons',
-      display_name: 'mythical weapons',
-      description: 'smite thee!',
-    };
-
-    testObj2 = {
-      name: 'household_goods',
-      display_name: 'household goods',
-      description: 'stuff fo yo crib!',
-    };
-
-    badObj = {
-      badProp: 12341234,
-      description: 'BLOW UP YOUR API!',
-      someOtherProp: true,
-    };
-
     jest.spyOn(global.console, 'log');
-    console.log = jest.fn();
-    console.error = jest.fn();
+    // console.log = jest.fn();
+    // console.error = jest.fn();
 
     await categories.schema.deleteMany({}).exec();
   });
@@ -54,9 +50,25 @@ describe('API routes for categories', () => {
     expect(getRes.statusCode).toBe(200);
     expect(getRes.body.count).toBe(2);
 
-    for (let index in getRes.body.results) {
+    for (let i in getRes.body.results) {
       Object.keys(testObj1).forEach(key => {
-        expect(memDb[index][key]).toEqual(getRes.body.results[index][key]);
+        expect(memDb[i][key]).toEqual(getRes.body.results[i][key]);
+      });
+    }
+  });
+
+  it('can get all categories and filter with a query', async () => {
+    const createObj1 = await categories.schema(testObj1).save();
+    await categories.schema(testObj2).save();
+
+    const getRes = await agent.get(`/api/v1/categories?name=${testObj1.name}`);
+    const getBodyRes = getRes.body.results;
+    expect(getRes.statusCode).toBe(200);
+    expect(getRes.body.count).toBe(1);
+
+    for (let i in getBodyRes) {
+      Object.keys(testObj1).forEach(key => {
+        expect(createObj1[key]).toEqual(getBodyRes[i][key]);
       });
     }
   });

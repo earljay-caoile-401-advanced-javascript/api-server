@@ -66,9 +66,25 @@ describe('API routes for products', () => {
     expect(getRes.statusCode).toBe(200);
     expect(getRes.body.count).toBe(2);
 
-    for (let index in getRes.body.results) {
+    for (let i in getRes.body.results) {
       Object.keys(testObj1).forEach(key => {
-        expect(memDb[index][key]).toEqual(getRes.body.results[index][key]);
+        expect(memDb[i][key]).toEqual(getRes.body.results[i][key]);
+      });
+    }
+  });
+
+  it('can get all products and filter with a query', async () => {
+    const createObj1 = await products.schema(testObj1).save();
+    await products.schema(testObj2).save();
+
+    const getRes = await agent.get(`/api/v1/products?name=${testObj1.name}`);
+    const getBodyRes = getRes.body.results;
+    expect(getRes.statusCode).toBe(200);
+    expect(getRes.body.count).toBe(1);
+
+    for (let i in getBodyRes) {
+      Object.keys(testObj1).forEach(key => {
+        expect(createObj1[key]).toEqual(getBodyRes[i][key]);
       });
     }
   });
