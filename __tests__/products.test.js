@@ -82,7 +82,9 @@ describe('API routes for products', () => {
     products.database.push(testObj1);
     testObj2.id = uuid();
     products.database.push(testObj2);
-
+    testObj3.id = uuid();
+    products.database.push(testObj3);
+    
     return agent
       .get(`/api/v1/products?category=${testObj1.category}`)
       .then(response => {
