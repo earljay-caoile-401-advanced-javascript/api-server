@@ -9,6 +9,7 @@
 - [submission PR](https://github.com/earljay-caoile-401-advanced-javascript/api-server/pull/1)
 - [GitHub Actions](https://github.com/earljay-caoile-401-advanced-javascript/api-server/actions)
 - [Code Fellows Supergoose](https://www.npmjs.com/package/@code-fellows/supergoose)
+- [Heroku Deployment](https://cf-js-401-api-server.herokuapp.com/)
 
 #### Documentation
 
