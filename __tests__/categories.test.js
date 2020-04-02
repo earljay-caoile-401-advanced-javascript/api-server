@@ -4,6 +4,8 @@ const supergoose = require('@code-fellows/supergoose');
 const server = require('../lib/server.js');
 const agent = supergoose(server.apiServer);
 const categories = require('../lib/models/categories/categories-collection.js');
+console.log = jest.fn();
+console.error = jest.fn();
 
 describe('API routes for categories', () => {
   const testObj1 = {
@@ -18,17 +20,8 @@ describe('API routes for categories', () => {
     description: 'stuff fo yo crib!',
   };
 
-  const badObj = {
-    badProp: 12341234,
-    description: 'BLOW UP YOUR API!',
-    someOtherProp: true,
-  };
-
   beforeEach(async () => {
     jest.spyOn(global.console, 'log');
-    // console.log = jest.fn();
-    // console.error = jest.fn();
-
     await categories.schema.deleteMany({}).exec();
   });
 
@@ -60,11 +53,13 @@ describe('API routes for categories', () => {
   it('can get all categories and filter with a query', async () => {
     const createObj1 = await categories.schema(testObj1).save();
     await categories.schema(testObj2).save();
+    jest.spyOn(Array.prototype, 'filter');
 
     const getRes = await agent.get(`/api/v1/categories?name=${testObj1.name}`);
     const getBodyRes = getRes.body.results;
     expect(getRes.statusCode).toBe(200);
     expect(getRes.body.count).toBe(1);
+    expect(Array.prototype.filter).toHaveBeenCalled();
 
     for (let i in getBodyRes) {
       Object.keys(testObj1).forEach(key => {

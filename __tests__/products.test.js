@@ -4,41 +4,30 @@ const supergoose = require('@code-fellows/supergoose');
 const server = require('../lib/server.js');
 const agent = supergoose(server.apiServer);
 const products = require('../lib/models/products/products-collection.js');
+console.log = jest.fn();
+console.error = jest.fn();
 
 describe('API routes for products', () => {
-  let testObj1;
-  let testObj2;
-  let badObj;
+  const testObj1 = {
+    category_id: 'mythical_weapons',
+    name: 'mjolnir',
+    display_name: 'Mjolnir',
+    price: 9999,
+    weight: 42.3,
+    quantity_in_stock: 1,
+  };
+
+  const testObj2 = {
+    category_id: 'household_goods',
+    name: 'adhesive_medical_strips',
+    display_name: 'Adhesive Medical Strips',
+    price: 3,
+    weight: 0.5,
+    quantity_in_stock: 111,
+  };
 
   beforeEach(async () => {
-    testObj1 = {
-      category_id: 'mythical_weapons',
-      name: 'mjolnir',
-      display_name: 'Mjolnir',
-      price: 9999,
-      weight: 42.3,
-      quantity_in_stock: 1,
-    };
-
-    testObj2 = {
-      category_id: 'household_goods',
-      name: 'adhesive_medical_strips',
-      display_name: 'Adhesive Medical Strips',
-      price: 3,
-      weight: 0.5,
-      quantity_in_stock: 111,
-    };
-
-    badObj = {
-      category_id: 22341234,
-      price: true,
-      weight: '234',
-    };
-
     jest.spyOn(global.console, 'log');
-    console.log = jest.fn();
-    console.error = jest.fn();
-
     await products.schema.deleteMany({}).exec();
   });
 
@@ -49,12 +38,6 @@ describe('API routes for products', () => {
     Object.keys(testObj1).forEach(key => {
       expect(testObj1[key]).toEqual(createRes.body[key]);
     });
-  });
-
-  it('can catch a post error and console error it', async () => {
-    jest.spyOn(global.console, 'error');
-    await agent.post('/api/v1/products').send(badObj);
-    expect(console.error).toHaveBeenCalled();
   });
 
   it('can get all products', async () => {
@@ -76,11 +59,13 @@ describe('API routes for products', () => {
   it('can get all products and filter with a query', async () => {
     const createObj1 = await products.schema(testObj1).save();
     await products.schema(testObj2).save();
+    jest.spyOn(Array.prototype, 'filter');
 
     const getRes = await agent.get(`/api/v1/products?name=${testObj1.name}`);
     const getBodyRes = getRes.body.results;
     expect(getRes.statusCode).toBe(200);
     expect(getRes.body.count).toBe(1);
+    expect(Array.prototype.filter).toHaveBeenCalled();
 
     for (let i in getBodyRes) {
       Object.keys(testObj1).forEach(key => {
@@ -137,14 +122,14 @@ describe('API routes for products', () => {
 });
 
 describe('API error routes for products', () => {
-  let testObj1 = {
+  const testObj1 = {
     category_id: 'mythical_weapons',
     price: 9999,
     weight: 42.3,
     quantity_in_stock: 1,
   };
 
-  let badObj = {
+  const badObj = {
     category_id: 22341234,
     price: true,
     weight: '234',
