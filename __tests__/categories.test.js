@@ -149,12 +149,6 @@ describe('API error routes for categories', () => {
     someOtherProp: true,
   };
 
-  let testObj1 = {
-    name: 'mythical_weapons',
-    display_name: 'mythical weapons',
-    description: 'smite thee!',
-  };
-
   beforeEach(async () => {
     jest.spyOn(global.console, 'error');
     categories.database = [];

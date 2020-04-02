@@ -156,14 +156,6 @@ describe('API routes for products', () => {
 });
 
 describe('API error routes for products', () => {
-  let testObj1 = {
-    category: 'mythical_weapons',
-    name: 'mjolnir',
-    display_name: 'Mjolnir',
-    description:
-      "Thor's hammer. It can only be wielded by those who are worthy!",
-  };
-
   let badObj = {
     category_id: 22341234,
     price: true,
