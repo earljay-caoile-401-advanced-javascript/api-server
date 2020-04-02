@@ -53,10 +53,10 @@ describe('API routes for categories', () => {
       .then(response => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(2);
-        for (let index in response.body.results) {
+        for (let i in response.body.results) {
           Object.keys(testObj1).forEach(key => {
-            expect(categories.database[index][key]).toEqual(
-              response.body.results[index][key],
+            expect(categories.database[i][key]).toEqual(
+              response.body.results[i][key],
             );
           });
         }
@@ -75,10 +75,10 @@ describe('API routes for categories', () => {
       .then(response => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(1);
-        for (let index in response.body.results) {
+        for (let i in response.body.results) {
           Object.keys(testObj1).forEach(key => {
-            expect(categories.database[index][key]).toEqual(
-              response.body.results[index][key],
+            expect(categories.database[i][key]).toEqual(
+              response.body.results[i][key],
             );
           });
         }

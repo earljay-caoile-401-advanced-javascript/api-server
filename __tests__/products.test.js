@@ -66,10 +66,10 @@ describe('API routes for products', () => {
       .then(response => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(3);
-        for (let index in response.body.results) {
+        for (let i in response.body.results) {
           Object.keys(testObj1).forEach(key => {
-            expect(products.database[index][key]).toEqual(
-              response.body.results[index][key],
+            expect(products.database[i][key]).toEqual(
+              response.body.results[i][key],
             );
           });
         }
@@ -88,10 +88,10 @@ describe('API routes for products', () => {
       .then(response => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(2);
-        for (let index in response.body.results) {
+        for (let i in response.body.results) {
           Object.keys(testObj1).forEach(key => {
-            expect(products.database[index][key]).toEqual(
-              response.body.results[index][key],
+            expect(products.database[i][key]).toEqual(
+              response.body.results[i][key],
             );
           });
         }
