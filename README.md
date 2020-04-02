@@ -33,7 +33,7 @@
 ### Web Server Visual Tests
 
 - Open this [React Application](https://w638oyk7o8.csb.app/)
-- In the form at the top of the page, enter the URL to your API Server
+- In the form at the top of the page, enter the URL to your API Server (use /api/v1 in addition to the base URL: i.e. `https://cf-js-401-api-server.herokuapp.com/api/v1` for the Heroku API server)
 - This server is configured to use the routes noted in the first lab requirement
 - If this lab is working, this app will show your API Data!
 
