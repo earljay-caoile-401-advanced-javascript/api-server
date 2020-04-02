@@ -2,12 +2,12 @@
   "name": "api-server",
   "version": "1.0.0",
   "description": "API Server for CF JS 401 Nights (n16)",
-  "main": "index.js",
+  "main": "app.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "lint": "eslint **/*.js",
     "test": "jest --verbose --coverage"
   },
