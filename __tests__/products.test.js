@@ -44,7 +44,7 @@ describe('API routes for products', () => {
       .post('/api/v1/products')
       .send(testObj1)
       .then(response => {
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(201);
         expect(!!response.body.id).toEqual(true);
         Object.keys(testObj1).forEach(key => {
           expect(testObj1[key]).toEqual(response.body[key]);
