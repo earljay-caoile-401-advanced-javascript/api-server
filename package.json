@@ -1,7 +1,7 @@
 {
-  "name": "lab-07",
+  "name": "api-server",
   "version": "1.0.0",
-  "description": "lab 07",
+  "description": "API Server for CF JS 401 Nights (n16)",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -13,20 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/js-401n15-eoc/lab-07.git"
+    "url": "git+https://github.com/earljay-caoile-401-advanced-javascript/api-server.git"
   },
   "author": "Earl Jay Caoile",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/js-401n15-eoc/lab-07/issues"
+    "url": "https://github.com/earljay-caoile-401-advanced-javascript/api-server/issues"
   },
-  "homepage": "https://github.com/js-401n15-eoc/lab-07#readme",
+  "homepage": "https://github.com/earljay-caoile-401-advanced-javascript/api-server#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.6",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@code-fellows/supergoose": "^1.0.1",
