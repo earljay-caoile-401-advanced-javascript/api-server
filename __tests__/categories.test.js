@@ -164,10 +164,10 @@ describe('API error routes for categories', () => {
     categories.get = jest.fn(async () => {
       throw 'dummy error';
     });
-    const createRes = await agent.get('/api/v1/categories');
+    const getRes = await agent.get('/api/v1/categories');
     expect(console.error).toHaveBeenCalled();
-    expect(createRes.statusCode).toEqual(500);
-    expect(createRes.body.error).toEqual('dummy error');
+    expect(getRes.statusCode).toEqual(500);
+    expect(getRes.body.error).toEqual('dummy error');
   });
 
   it('can catch a get one error and console error it', async () => {

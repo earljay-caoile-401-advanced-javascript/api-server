@@ -171,7 +171,8 @@ describe('API error routes for products', () => {
 
   it('can catch a post error and console error it', async () => {
     jest.spyOn(global.console, 'error');
-    await agent.post('/api/v1/products').send(badObj);
+    const createRes = await agent.post('/api/v1/products').send(badObj);
+    expect(createRes.statusCode).toEqual(500);
     expect(console.error).toHaveBeenCalled();
   });
 
@@ -179,10 +180,10 @@ describe('API error routes for products', () => {
     products.get = jest.fn(async () => {
       throw 'dummy error';
     });
-    const createRes = await agent.get('/api/v1/products');
+    const getRes = await agent.get('/api/v1/products');
     expect(console.error).toHaveBeenCalled();
-    expect(createRes.statusCode).toEqual(500);
-    expect(createRes.body.error).toEqual('dummy error');
+    expect(getRes.statusCode).toEqual(500);
+    expect(getRes.body.error).toEqual('dummy error');
   });
 
   it('can catch a get one error and console error it', async () => {
