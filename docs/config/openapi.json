@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "defaultTitle",
-    "description" : "defaultDescription",
+    "title" : "API Server for Labs 07 to 09",
+    "description" : "An Express Server that will eventually run on Mongoose...",
     "version" : "0.1"
   },
   "servers" : [ {
@@ -14,6 +14,39 @@
         "description" : "Auto generated using Swagger Inspector",
         "responses" : {
           "200" : {
+            "description" : "Auto generated using Swagger Inspector",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : { }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "https://cf-js-401-api-server.herokuapp.com"
+        } ]
+      },
+      "post" : {
+        "description" : "Auto generated using Swagger Inspector",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              },
+              "examples" : {
+                "0" : {
+                  "value" : "{\n  \"category\": \"electronics\",\n  \"name\": \"sennheiser_hd_650\",\n  \"display_name\": \"Sennheiser HD 650\",\n  \"description\": \"open cans for dat muzak\",\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
             "description" : "Auto generated using Swagger Inspector",
             "content" : {
               "application/json; charset=utf-8" : {
@@ -64,7 +97,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body"
+                "$ref" : "#/components/schemas/body_1"
               },
               "examples" : {
                 "0" : {
@@ -191,7 +224,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_1"
+                "$ref" : "#/components/schemas/body_2"
               },
               "examples" : {
                 "0" : {
@@ -229,7 +262,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_2"
+                "$ref" : "#/components/schemas/body_3"
               },
               "examples" : {
                 "0" : {
@@ -292,6 +325,20 @@
         }
       },
       "body_2" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "display_name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_3" : {
         "type" : "object",
         "properties" : {
           "name" : {
