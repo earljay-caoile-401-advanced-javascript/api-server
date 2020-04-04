@@ -1,12 +1,12 @@
-# LAB - Express Routing & Connected API (08)
+# LAB: API Server (09)
 
-## Create an Express API Server
+## A production ready API server with dynamic models
 
 ### Author: Earl Jay Caoile
 
 ### Links and Resources
 
-- [submission PR](https://github.com/earljay-caoile-401-advanced-javascript/api-server/pull/2)
+- [submission PR](https://github.com/earljay-caoile-401-advanced-javascript/api-server/pull/3)
 - [GitHub Actions](https://github.com/earljay-caoile-401-advanced-javascript/api-server/actions)
 - [Code Fellows Supergoose](https://www.npmjs.com/package/@code-fellows/supergoose)
 - [Heroku Deployment](https://cf-js-401-api-server.herokuapp.com/)
@@ -41,4 +41,4 @@
 
 #### UML
 
-![UML Image](lab-08-uml.png "uml diagram")
+![UML Image](lab-09-uml.png "uml diagram")
