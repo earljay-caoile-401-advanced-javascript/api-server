@@ -25,11 +25,12 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "morgan": "^1.9.1",
+    "mongoose": "^5.9.7",
+    "morgan": "^1.10.0",
     "uuid": "^7.0.3"
   },
   "devDependencies": {
-    "@code-fellows/supergoose": "^1.0.1",
+    "@code-fellows/supergoose": "^1.0.2",
     "jest": "^25.1.0"
   }
 }

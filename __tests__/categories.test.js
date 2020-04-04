@@ -29,7 +29,7 @@ describe('API routes for categories', () => {
     const createRes = await agent.post('/api/v1/categories').send(testObj1);
     expect(createRes.statusCode).toBe(200);
     expect(!!createRes.body._id).toEqual(true);
-    Object.keys(testObj1).forEach(key => {
+    Object.keys(testObj1).forEach((key) => {
       expect(testObj1[key]).toEqual(createRes.body[key]);
     });
   });
@@ -44,7 +44,7 @@ describe('API routes for categories', () => {
     expect(getRes.body.count).toBe(2);
 
     for (let i in getRes.body.results) {
-      Object.keys(testObj1).forEach(key => {
+      Object.keys(testObj1).forEach((key) => {
         expect(memDb[i][key]).toEqual(getRes.body.results[i][key]);
       });
     }
@@ -62,7 +62,7 @@ describe('API routes for categories', () => {
     expect(Array.prototype.filter).toHaveBeenCalled();
 
     for (let i in getBodyRes) {
-      Object.keys(testObj1).forEach(key => {
+      Object.keys(testObj1).forEach((key) => {
         expect(createObj1[key]).toEqual(getBodyRes[i][key]);
       });
     }
@@ -76,11 +76,11 @@ describe('API routes for categories', () => {
     expect(getOneRes.statusCode).toBe(200);
     expect(getOneRes.body._id.toString()).toBe(createRes1._id.toString());
 
-    Object.keys(testObj1).forEach(key => {
+    Object.keys(testObj1).forEach((key) => {
       expect(getOneRes.body[key]).toEqual(createRes1[key]);
     });
 
-    Object.keys(testObj1).forEach(key => {
+    Object.keys(testObj1).forEach((key) => {
       expect(getOneRes.body[key]).not.toEqual(createRes2[key]);
     });
   });
@@ -98,7 +98,7 @@ describe('API routes for categories', () => {
       .send(editObj);
 
     expect(updateRes.statusCode).toBe(200);
-    Object.keys(editObj).forEach(key => {
+    Object.keys(editObj).forEach((key) => {
       expect(updateRes.body[key]).toEqual(editObj[key]);
     });
   });
@@ -175,11 +175,7 @@ describe('API error routes for categories', () => {
   });
 
   it('can catch a delete error and console error it', async () => {
-    categories.delete = jest.fn(async () => {
-      throw 'dummy error';
-    });
-    const createRes = await categories.schema(testObj1).save();
-    const deleteRes = await agent.delete(`/api/v1/categories/${createRes._id}`);
+    const deleteRes = await agent.delete(`/api/v1/categories/fakeIDblah555`);
     expect(deleteRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
   });
