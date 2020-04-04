@@ -120,12 +120,6 @@ describe('API error routes for categories', () => {
     someOtherProp: true,
   };
 
-  let testObj1 = {
-    name: 'mythical_weapons',
-    display_name: 'mythical weapons',
-    description: 'smite thee!',
-  };
-
   beforeEach(async () => {
     jest.spyOn(global.console, 'error');
   });
@@ -151,9 +145,6 @@ describe('API error routes for categories', () => {
   });
 
   it('can catch a get one error and console error it', async () => {
-    categories.get = jest.fn(async () => {
-      throw 'dummy error';
-    });
     const getOneRes = await agent.get(
       `/api/v1/categories/360noscope420blazeit!!!111`,
     );
@@ -163,12 +154,8 @@ describe('API error routes for categories', () => {
   });
 
   it('can catch an update error and console error it', async () => {
-    categories.update = jest.fn(async () => {
-      throw 'dummy error';
-    });
-    const createRes = await categories.schema(testObj1).save();
     const updateRes = await agent
-      .put(`/api/v1/categories/${createRes._id}`)
+      .put(`/api/v1/categories/fakeIDblah555`)
       .send(badObj);
     expect(updateRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();

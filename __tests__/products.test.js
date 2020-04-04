@@ -9,21 +9,26 @@ console.error = jest.fn();
 
 describe('API routes for products', () => {
   const testObj1 = {
-    category_id: 'mythical_weapons',
+    category: 'mythical_weapons',
     name: 'mjolnir',
     display_name: 'Mjolnir',
-    price: 9999,
-    weight: 42.3,
-    quantity_in_stock: 1,
+    description:
+      "Thor's hammer. It can only be wielded by those who are worthy!",
   };
 
   const testObj2 = {
-    category_id: 'household_goods',
+    category: 'mythical_weapons',
+    name: 'gungnir',
+    display_name: 'Gungnir',
+    description: "Odin's spear. It supposedly doesn't miss...",
+  };
+
+  const testObj3 = {
+    category: 'health_house_baby',
     name: 'adhesive_medical_strips',
     display_name: 'Adhesive Medical Strips',
-    price: 3,
-    weight: 0.5,
-    quantity_in_stock: 111,
+    description:
+      "We can't use band-aid since that's a copyrighted compoany name, but that's pretty much what it is...",
   };
 
   beforeEach(async () => {
@@ -43,11 +48,12 @@ describe('API routes for products', () => {
   it('can get all products', async () => {
     await products.schema(testObj1).save();
     await products.schema(testObj2).save();
-    let memDb = [testObj1, testObj2];
+    await products.schema(testObj3).save();
+    const memDb = [testObj1, testObj2, testObj3];
 
     const getRes = await agent.get('/api/v1/products');
     expect(getRes.statusCode).toBe(200);
-    expect(getRes.body.count).toBe(2);
+    expect(getRes.body.count).toBe(3);
 
     for (let i in getRes.body.results) {
       Object.keys(testObj1).forEach((key) => {
@@ -57,19 +63,25 @@ describe('API routes for products', () => {
   });
 
   it('can get all products and filter with a query', async () => {
-    const createObj1 = await products.schema(testObj1).save();
+    await products.schema(testObj1).save();
     await products.schema(testObj2).save();
+    await products.schema(testObj3).save();
+    const memDb = [testObj1, testObj2];
+
     jest.spyOn(Array.prototype, 'filter');
 
-    const getRes = await agent.get(`/api/v1/products?name=${testObj1.name}`);
+    const getRes = await agent.get(
+      `/api/v1/products?category=${testObj1.category}`,
+    );
     const getBodyRes = getRes.body.results;
+    console.log('getRes:', getRes.body);
     expect(getRes.statusCode).toBe(200);
-    expect(getRes.body.count).toBe(1);
+    expect(getRes.body.count).toBe(2);
     expect(Array.prototype.filter).toHaveBeenCalled();
 
     for (let i in getBodyRes) {
       Object.keys(testObj1).forEach((key) => {
-        expect(createObj1[key]).toEqual(getBodyRes[i][key]);
+        expect(memDb[i][key]).toEqual(getBodyRes[i][key]);
       });
     }
   });
@@ -85,20 +97,14 @@ describe('API routes for products', () => {
     Object.keys(testObj1).forEach((key) => {
       expect(getOneRes.body[key]).toEqual(createRes1[key]);
     });
-
-    Object.keys(testObj1).forEach((key) => {
-      expect(getOneRes.body[key]).not.toEqual(createRes2[key]);
-    });
   });
 
   it('can update a product', async () => {
     const editObj = {
-      category_id: 'uber_weapons',
-      name: 'edited_mjolnir',
-      display_name: 'Edited Mjolnir',
-      price: 333,
-      weight: 42.5,
-      quantity_in_stock: 3,
+      category: 'mythical_weapons_edited',
+      name: 'mjolnir_edited',
+      display_name: 'Mjolnir!!!!!!!!!oneoneone',
+      description: 'Edited the description! You are not worthy!',
     };
 
     const createRes = await agent.post(`/api/v1/products/`).send(testObj1);
@@ -122,17 +128,10 @@ describe('API routes for products', () => {
 });
 
 describe('API error routes for products', () => {
-  const testObj1 = {
-    category_id: 'mythical_weapons',
-    price: 9999,
-    weight: 42.3,
-    quantity_in_stock: 1,
-  };
-
   const badObj = {
-    category_id: 22341234,
-    price: true,
-    weight: '234',
+    category: 22341234,
+    name: true,
+    fakeCat: '234',
   };
 
   beforeEach(async () => {
@@ -160,9 +159,6 @@ describe('API error routes for products', () => {
   });
 
   it('can catch a get one error and console error it', async () => {
-    products.get = jest.fn(async () => {
-      throw 'dummy error';
-    });
     const getOneRes = await agent.get(
       `/api/v1/products/360noscope420blazeit!!!111`,
     );
@@ -172,12 +168,8 @@ describe('API error routes for products', () => {
   });
 
   it('can catch an update error and console error it', async () => {
-    products.update = jest.fn(async () => {
-      throw 'dummy error';
-    });
-    const createRes = await products.schema(testObj1).save();
     const updateRes = await agent
-      .put(`/api/v1/products/${createRes._id}`)
+      .put(`/api/v1/products/fakeIDblah555`)
       .send(badObj);
     expect(updateRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
