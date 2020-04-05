@@ -32,14 +32,14 @@ describe('API routes for categories', () => {
     return agent
       .post('/api/v1/categories')
       .send(testObj1)
-      .then(response => {
+      .then((response) => {
         expect(response.statusCode).toBe(201);
         expect(!!response.body.id).toEqual(true);
-        Object.keys(testObj1).forEach(key => {
+        Object.keys(testObj1).forEach((key) => {
           expect(testObj1[key]).toEqual(response.body[key]);
         });
       })
-      .catch(error => expect(error).not.toBeDefined());
+      .catch((error) => expect(error).not.toBeDefined());
   });
 
   it('can get all categories', () => {
@@ -50,18 +50,18 @@ describe('API routes for categories', () => {
 
     return agent
       .get('/api/v1/categories')
-      .then(response => {
+      .then((response) => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(2);
         for (let i in response.body.results) {
-          Object.keys(testObj1).forEach(key => {
+          Object.keys(testObj1).forEach((key) => {
             expect(categories.database[i][key]).toEqual(
               response.body.results[i][key],
             );
           });
         }
       })
-      .catch(error => expect(error).not.toBeDefined());
+      .catch((error) => expect(error).not.toBeDefined());
   });
 
   it('can get all categories and filter with a query', () => {
@@ -72,18 +72,18 @@ describe('API routes for categories', () => {
 
     return agent
       .get(`/api/v1/categories?name=${testObj1.name}`)
-      .then(response => {
+      .then((response) => {
         expect(response.statusCode).toBe(200);
         expect(response.body.count).toBe(1);
         for (let i in response.body.results) {
-          Object.keys(testObj1).forEach(key => {
+          Object.keys(testObj1).forEach((key) => {
             expect(categories.database[i][key]).toEqual(
               response.body.results[i][key],
             );
           });
         }
       })
-      .catch(error => expect(error).not.toBeDefined());
+      .catch((error) => expect(error).not.toBeDefined());
   });
 
   it('can get one category', () => {
@@ -92,20 +92,20 @@ describe('API routes for categories', () => {
 
     return agent
       .get(`/api/v1/categories/${testObj1.id}`)
-      .then(response => {
+      .then((response) => {
         expect(response.statusCode).toBe(200);
         const dbFilter = categories.database.filter(
-          record => record.id === testObj1.id,
+          (record) => record.id === testObj1.id,
         );
 
         expect(response.body).toEqual(dbFilter);
-        Object.keys(testObj1).forEach(key => {
+        Object.keys(testObj1).forEach((key) => {
           expect(categories.database[key]).toEqual(response.body[key]);
           expect(response.body[key]).toEqual(dbFilter[key]);
           expect(categories.database[key]).toEqual(dbFilter[key]);
         });
       })
-      .catch(error => expect(error).not.toBeDefined());
+      .catch((error) => expect(error).not.toBeDefined());
   });
 
   it('can update a category', () => {
@@ -120,13 +120,13 @@ describe('API routes for categories', () => {
     return agent
       .put(`/api/v1/categories/${testObj1.id}`)
       .send(editObj)
-      .then(response => {
+      .then((response) => {
         expect(response.statusCode).toBe(200);
-        Object.keys(editObj).forEach(key => {
+        Object.keys(editObj).forEach((key) => {
           expect(response.body[key]).toEqual(editObj[key]);
         });
       })
-      .catch(error => expect(error).not.toBeDefined());
+      .catch((error) => expect(error).not.toBeDefined());
   });
 
   it('can delete a category', () => {
@@ -134,10 +134,10 @@ describe('API routes for categories', () => {
     categories.database.push(testObj1);
     return agent
       .delete(`/api/v1/categories/${testObj1.id}`)
-      .then(response => {
-        expect(response.statusCode).toBe(204);
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
       })
-      .catch(error => expect(error).not.toBeDefined());
+      .catch((error) => expect(error).not.toBeDefined());
   });
 });
 
