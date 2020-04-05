@@ -1,0 +1,331 @@
+{
+  "info": {
+    "description": "This is a sample server",
+    "title": "Swagger",
+    "version": "1.0.0"
+  },
+  "host": "cf-js-401-api-server.herokuapp.com",
+  "basePath": "/api/v1",
+  "produces": [
+    "application/json",
+    "application/xml"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": ""
+    }
+  },
+  "swagger": "2.0",
+  "paths": {
+    "/categories": {
+      "get": {
+        "parameters": [],
+        "description": "fetches an array of category objects along with the count of objects",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object containing an array of categories and the array count"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "category",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "display_name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "in": "body",
+            "description": "category object to add to the database",
+            "required": false
+          }
+        ],
+        "description": "creates an individual category object and adds it to the categories database",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "201": {
+            "description": "the added category object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the ID property of the individual category to get",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "fetches an individual category object by searching for its ID",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "the added category object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the ID property of the individual category to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "display_name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "object with properties to update existing product with",
+            "required": false
+          }
+        ],
+        "description": "updates an existing category object in the database with the properties in the input object",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "the updated category object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the ID property of the individual category to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "deletes an existing category object in the database",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "the deleted category object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "parameters": [],
+        "description": "fetches an array of product objects along with the count of objects",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "an object containing an array of products and the array count"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "product",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "display_name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "product object to add to the database",
+            "required": false
+          }
+        ],
+        "description": "creates an individual product object and adds it to the products database",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "201": {
+            "description": "the added product object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the ID property of the individual product to get",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "fetches an individual product object by searching for its ID",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "the added product object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the ID property of the individual category to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "product",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "display_name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "object with properties to update existing product with",
+            "required": false
+          }
+        ],
+        "description": "updates an existing product object in the database with the properties in the input object",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "the updated category object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the ID property of the individual product to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "deletes an existing product object in the database",
+        "tags": [
+          "default"
+        ],
+        "responses": {
+          "200": {
+            "description": "the deleted product object"
+          },
+          "500": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "responses": {},
+  "parameters": {},
+  "tags": [
+    {
+      "name": "default",
+      "description": ""
+    }
+  ]
+}
