@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "lint": "eslint **/*.js",
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "test-watch": "jest --watchAll --verbose --coverage"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@code-fellows/supergoose": "^1.0.1",
+    "express-swagger-generator": "^1.1.17",
     "jest": "^25.1.0"
   }
 }
