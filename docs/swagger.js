@@ -1,6 +1,3 @@
-const Category = require('../lib/models/categories/categories-schema.js');
-const Product = require('../lib/models/products/products-schema.js');
-
 module.exports = (app) => {
   const expressSwagger = require('express-swagger-generator')(app);
   const sampleData = require('../data/db.json');
@@ -130,7 +127,7 @@ module.exports = (app) => {
       },
     },
     basedir: __dirname, //app absolute path
-    files: ['server.js'], //Path to the API handle folder
+    files: ['../lib/routes/***.js'], //Path to the API handle folder
   };
   expressSwagger(options);
 };
