@@ -1,3 +1,10 @@
+'use strict';
+
+/**
+ * loads express-swagger-generator with the appropriate options to generate a Swagger page for the API server
+ * @param {object} app - express app instance
+ * @returns (void)
+ */
 module.exports = (app) => {
   const expressSwagger = require('express-swagger-generator')(app);
   const sampleData = require('../data/db.json');
@@ -54,7 +61,7 @@ module.exports = (app) => {
             results: {
               type: 'array',
               items: {
-                $ref: '#definitions/category_response',
+                $ref: '#/definitions/category_response',
               },
             },
           },
@@ -97,7 +104,7 @@ module.exports = (app) => {
             results: {
               type: 'array',
               items: {
-                $ref: '#definitions/product_response',
+                $ref: '#/definitions/product_response',
               },
             },
           },
