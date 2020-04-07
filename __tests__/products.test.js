@@ -113,7 +113,7 @@ describe('API routes for products', () => {
   it('can delete a product', async () => {
     const createRes = await products.schema(testObj1).save();
     const deleteRes = await agent.delete(`/api/v1/products/${createRes._id}`);
-    expect(deleteRes.statusCode).toBe(204);
+    expect(deleteRes.statusCode).toBe(200);
     const getOneRes = await agent.get(`/api/v1/products/${createRes._id}`);
     expect(getOneRes.body).toEqual(null);
   });

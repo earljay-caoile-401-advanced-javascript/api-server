@@ -106,7 +106,7 @@ describe('API routes for categories', () => {
   it('can delete a category', async () => {
     const createRes = await categories.schema(testObj1).save();
     const deleteRes = await agent.delete(`/api/v1/categories/${createRes._id}`);
-    expect(deleteRes.statusCode).toBe(204);
+    expect(deleteRes.statusCode).toBe(200);
     const getOneRes = await agent.get(`/api/v1/categories/${createRes._id}`);
     expect(getOneRes.body).toEqual(null);
   });

@@ -26,103 +26,86 @@ module.exports = (app) => {
       definitions: {
         category_request: {
           properties: {
-            name: { type: 'string', example: 'mythical_weapons' },
-            display_name: {
-              type: 'string',
-              example: 'Mythical Weapons',
-            },
-            description: {
-              type: 'string',
-              example: 'I shall smite thee!',
-            },
+            name: { type: 'string' },
+            display_name: { type: 'string' },
+            description: { type: 'string' },
+          },
+          example: {
+            name: sampleData.categories[0].name,
+            display_name: sampleData.categories[0].display_name,
+            description: sampleData.categories[0].description,
           },
           required: ['id', 'name'],
         },
         category_response: {
           properties: {
-            id: {
-              type: 'string',
-              example: '923c0ed5-d53d-4b1d-a08a-efa6ee6d0f8f',
-            },
-            name: { type: 'string', example: 'mythical_weapons' },
-            display_name: {
-              type: 'string',
-              example: 'Mythical Weapons',
-            },
-            description: {
-              type: 'string',
-              example: 'I shall smite thee!',
-            },
+            id: { type: 'string' },
+            name: { type: 'string' },
+            display_name: { type: 'string' },
+            description: { type: 'string' },
+            __v: { type: 'number' },
           },
+          example: sampleData.categories[0],
           required: ['id', 'name'],
         },
         categories: {
           properties: {
-            count: {
-              type: 'number',
-              example: sampleData.categories.length,
-            },
+            count: { type: 'number' },
             results: {
               type: 'array',
-              example: sampleData.categories,
+              items: {
+                $ref: '#definitions/category_response',
+              },
             },
           },
-          required: ['count', 'results'],
-          items: {
-            type: 'object',
+          example: {
+            count: sampleData.categories.length,
+            results: sampleData.categories,
           },
+          required: ['count', 'results'],
         },
         product_request: {
           properties: {
-            category: {
-              type: 'string',
-              example: 'mythical_weapons',
-            },
-            name: { type: 'string', example: 'mjolnir' },
-            display_name: { type: 'string', example: 'Mjolnir' },
-            description: {
-              type: 'string',
-              example:
-                "Thor's hammer. It can only be wielded by those who are worthy!",
-            },
+            category: { type: 'string' },
+            name: { type: 'string' },
+            display_name: { type: 'string' },
+            description: { type: 'string' },
+          },
+          example: {
+            category: sampleData.products[0].category,
+            name: sampleData.products[0].name,
+            display_name: sampleData.products[0].display_name,
+            description: sampleData.products[0].description,
           },
           required: ['category', 'name'],
         },
         product_response: {
           properties: {
-            id: {
-              type: 'string',
-              example: 'fdda60f9-11ce-430c-a35c-838817ad1496',
-            },
-            category: {
-              type: 'string',
-              example: 'mythical_weapons',
-            },
-            name: { type: 'string', example: 'mjolnir' },
-            display_name: { type: 'string', example: 'Mjolnir' },
-            description: {
-              type: 'string',
-              example:
-                "Thor's hammer. It can only be wielded by those who are worthy!",
-            },
+            id: { type: 'string' },
+            category: { type: 'string' },
+            name: { type: 'string' },
+            display_name: { type: 'string' },
+            description: { type: 'string' },
+            __v: { type: 'number' },
           },
+          example: sampleData.products[0],
           required: ['id', 'category', 'name'],
         },
         products: {
           properties: {
-            count: {
-              type: 'number',
-              example: sampleData.products.length,
-            },
+            count: { type: 'number' },
             results: {
               type: 'array',
-              example: sampleData.products,
+              items: {
+                $ref: '#definitions/product_response',
+              },
             },
           },
-          required: ['count', 'results'],
-          items: {
-            type: 'object',
+          example: {
+            count: sampleData.products.length,
+            results: sampleData.products,
           },
+          required: ['count', 'results'],
         },
       },
     },
