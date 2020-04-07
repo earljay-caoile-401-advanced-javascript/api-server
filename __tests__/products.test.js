@@ -13,14 +13,14 @@ describe('API routes for products', () => {
     name: 'mjolnir',
     display_name: 'Mjolnir',
     description:
-      "Thor's hammer. It can only be wielded by those who are worthy!",
+      'Thor\'s hammer. It can only be wielded by those who are worthy!',
   };
 
   const testObj2 = {
     category: 'mythical_weapons',
     name: 'gungnir',
     display_name: 'Gungnir',
-    description: "Odin's spear. It supposedly doesn't miss...",
+    description: 'Odin\'s spear. It supposedly doesn\'t miss...',
   };
 
   const testObj3 = {
@@ -28,7 +28,7 @@ describe('API routes for products', () => {
     name: 'adhesive_medical_strips',
     display_name: 'Adhesive Medical Strips',
     description:
-      "We can't use band-aid since that's a copyrighted compoany name, but that's pretty much what it is...",
+      'We can\'t use band-aid since that\'s a copyrighted compoany name, but that\'s pretty much what it is...',
   };
 
   beforeEach(async () => {
@@ -64,6 +64,7 @@ describe('API routes for products', () => {
   it('can get all products and filter with a query', async () => {
     const createObj1 = await products.schema(testObj1).save();
     await products.schema(testObj2).save();
+    await products.schema(testObj3).save();
     jest.spyOn(Array.prototype, 'filter');
 
     const getRes = await agent.get(`/api/v1/products?name=${testObj1.name}`);
@@ -81,7 +82,7 @@ describe('API routes for products', () => {
 
   it('can get one product', async () => {
     const createRes1 = await products.schema(testObj1).save();
-    const createRes2 = await products.schema(testObj2).save();
+    await products.schema(testObj2).save();
     const getOneRes = await agent.get(`/api/v1/products/${createRes1._id}`);
 
     expect(getOneRes.statusCode).toBe(200);

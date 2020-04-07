@@ -64,20 +64,3 @@ describe('logger middleware', () => {
     expect(next).toHaveBeenCalled();
   });
 });
-
-// describe('model-finder middleware', () => {
-//   it('works', () => {
-//     req.params = {
-//       model: 'categories',
-//     };
-//     req.mockFs = true;
-//     modelFinder(req, res, next);
-//     expect(next).toHaveBeenCalled();
-
-//     req.params = {
-//       model: 'fake-model-that-causes-an-error',
-//     };
-//     modelFinder(req, res, next);
-//     expect(next).toHaveBeenCalled();
-//   });
-// });
