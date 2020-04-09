@@ -122,7 +122,6 @@ describe('API error routes for categories', () => {
 
   beforeEach(async () => {
     jest.spyOn(global.console, 'error');
-    categories.database = [];
   });
 
   it('can catch a post error and console error it', async () => {
