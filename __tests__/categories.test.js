@@ -106,7 +106,7 @@ describe('API routes for categories', () => {
   it('can delete a category', async () => {
     const createRes = await categories.schema(testObj1).save();
     const deleteRes = await agent.delete(`/api/v1/categories/${createRes._id}`);
-    expect(deleteRes.statusCode).toBe(204);
+    expect(deleteRes.statusCode).toBe(200);
     const getOneRes = await agent.get(`/api/v1/categories/${createRes._id}`);
     expect(getOneRes.body).toEqual(null);
   });
@@ -124,10 +124,6 @@ describe('API error routes for categories', () => {
     jest.spyOn(global.console, 'error');
   });
 
-  afterEach(async () => {
-    await categories.schema.deleteMany({}).exec();
-  });
-
   it('can catch a post error and console error it', async () => {
     const createRes = await agent.post('/api/v1/categories').send(badObj);
     expect(console.error).toHaveBeenCalled();
@@ -138,13 +134,16 @@ describe('API error routes for categories', () => {
     categories.get = jest.fn(async () => {
       throw 'dummy error';
     });
-    const createRes = await agent.get('/api/v1/categories');
+    const getRes = await agent.get('/api/v1/categories');
     expect(console.error).toHaveBeenCalled();
-    expect(createRes.statusCode).toEqual(500);
-    expect(createRes.body.error).toEqual('dummy error');
+    expect(getRes.statusCode).toEqual(500);
+    expect(getRes.body.error).toEqual('dummy error');
   });
 
   it('can catch a get one error and console error it', async () => {
+    categories.get = jest.fn(async () => {
+      throw 'dummy error';
+    });
     const getOneRes = await agent.get(
       `/api/v1/categories/360noscope420blazeit!!!111`,
     );
@@ -154,15 +153,20 @@ describe('API error routes for categories', () => {
   });
 
   it('can catch an update error and console error it', async () => {
+    const createRes = await agent.post('/api/v1/categories').send(badObj);
     const updateRes = await agent
-      .put(`/api/v1/categories/fakeIDblah555`)
+      .put(`/api/v1/categories/${createRes._id}`)
       .send(badObj);
     expect(updateRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
   });
 
   it('can catch a delete error and console error it', async () => {
-    const deleteRes = await agent.delete(`/api/v1/categories/fakeIDblah555`);
+    categories.delete = jest.fn(async () => {
+      throw 'dummy error';
+    });
+    const createRes = await agent.post('/api/v1/categories').send(badObj);
+    const deleteRes = await agent.delete(`/api/v1/categories/${createRes._id}`);
     expect(deleteRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
   });
