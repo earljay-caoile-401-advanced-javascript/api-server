@@ -19,6 +19,6 @@ describe('server', () => {
 describe('model finder', () => {
   it('will return an error for an invalid model', async () => {
     const getRes = await agent.get('/api/v1/dumplings');
-    expect(getRes.statusCode).toBe(500);
+    expect(getRes.statusCode).toBe(404);
   });
 });
