@@ -8,6 +8,7 @@
 module.exports = (app) => {
   const expressSwagger = require('express-swagger-generator')(app);
   const sampleData = require('../data/db.json');
+
   const options = {
     swaggerDefinition: {
       info: {
@@ -15,11 +16,11 @@ module.exports = (app) => {
         title: 'Swagger',
         version: '1.0.0',
       },
-      host: process.env.HOST || 'localhost:3000',
+      host: process.env.HOST || 'localhost:3000', // damage control in case user doesn't fill out .env
       basePath: '/api/v1',
       produces: ['application/json', 'application/xml'],
       schemes:
-        process.env.HOST && process.env.HOST.includes('localhost')
+        !process.env.HOST || process.env.HOST.includes('localhost')
           ? ['http']
           : ['https'],
       securityDefinitions: {

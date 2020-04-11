@@ -8,10 +8,11 @@
 
 - [submission PR](https://github.com/earljay-caoile-401-advanced-javascript/api-server/pull/3)
 - [GitHub Actions](https://github.com/earljay-caoile-401-advanced-javascript/api-server/actions)
-- [Code Fellows Supergoose](https://www.npmjs.com/package/@code-fellows/supergoose)
 - [Heroku Deployment](https://cf-js-401-api-server.herokuapp.com/)
 - [Swagger API Documentation for Heroku Deployment](https://cf-js-401-api-server.herokuapp.com/api-docs)
+
 - [Swagger Editor (good for validation)](https://editor.swagger.io/)
+- [Code Fellows Supergoose](https://www.npmjs.com/package/@code-fellows/supergoose)
 
 ### Documentation
 
@@ -43,9 +44,10 @@ As of this revision, you need to put in the HOST variable as well. Mine, for exa
 ### Web Server Visual Tests
 
 - Open this [React Application](https://w638oyk7o8.csb.app/)
-- In the form at the top of the page, enter the URL to your API Server (use /api/v1 in addition to the base URL: i.e. `https://cf-js-401-api-server.herokuapp.com/api/v1` for the Heroku API server)
+- In the form at the top of the page, enter the URL to your API Server (use /api/v1 in addition to the base URL: i.e. `https://cf-js-401-api-server.herokuapp.com/api/v1` for the Heroku API server and `http://localhost:3000/api/v1` for the local server)
 - This server is configured to use the routes noted in the first lab requirement
 - If this lab is working, this app will show your API Data!
+
 
 #### UML
 
