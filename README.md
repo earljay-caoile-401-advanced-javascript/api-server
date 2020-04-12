@@ -54,6 +54,6 @@ As of this revision, you need to put in the HOST variable as well. Mine, for exa
 - If this lab is working, this app will show your API Data!
 
 
-#### UML
+### UML
 
 ![UML Image](lab-09-uml.png "uml diagram")
