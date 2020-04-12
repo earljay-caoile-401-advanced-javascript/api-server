@@ -11,10 +11,10 @@ const res = {};
 console.log = jest.fn();
 
 const res404 = {
-  send: function(msg) {
+  send: function (msg) {
     expect(msg).toEqual('route not supported');
   },
-  status: function(num) {
+  status: function (num) {
     expect(num).toEqual(404);
     // Calling this to be chainable
     return this;
@@ -23,11 +23,11 @@ const res404 = {
 
 const fakeErrorMsg = 'fake error';
 const res500 = {
-  json: function(error) {
+  json: function (error) {
     expect(error.text).toEqual('Server crashed!');
     expect(error.error).toEqual(fakeErrorMsg);
   },
-  status: function(num) {
+  status: function (num) {
     expect(num).toEqual(500);
     // Calling this to be chainable
     return this;
@@ -64,20 +64,3 @@ describe('logger middleware', () => {
     expect(next).toHaveBeenCalled();
   });
 });
-
-// describe('model-finder middleware', () => {
-//   it('works', () => {
-//     req.params = {
-//       model: 'categories',
-//     };
-//     req.mockFs = true;
-//     modelFinder(req, res, next);
-//     expect(next).toHaveBeenCalled();
-
-//     req.params = {
-//       model: 'fake-model-that-causes-an-error',
-//     };
-//     modelFinder(req, res, next);
-//     expect(next).toHaveBeenCalled();
-//   });
-// });
