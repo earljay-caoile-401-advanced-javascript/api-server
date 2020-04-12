@@ -6,10 +6,14 @@
 
 ### Links and Resources
 
+#### Submission Reqs
+
 - [submission PR](https://github.com/earljay-caoile-401-advanced-javascript/api-server/pull/3)
 - [GitHub Actions](https://github.com/earljay-caoile-401-advanced-javascript/api-server/actions)
 - [Heroku Deployment](https://cf-js-401-api-server.herokuapp.com/)
 - [Swagger API Documentation for Heroku Deployment](https://cf-js-401-api-server.herokuapp.com/api-docs)
+
+#### Resources
 
 - [Swagger Editor (good for validation)](https://editor.swagger.io/)
 - [Code Fellows Supergoose](https://www.npmjs.com/package/@code-fellows/supergoose)
