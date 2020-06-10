@@ -13,14 +13,14 @@ describe('API routes for products', () => {
     name: 'mjolnir',
     display_name: 'Mjolnir',
     description:
-      'Thor\'s hammer. It can only be wielded by those who are worthy!',
+      "Thor's hammer. It can only be wielded by those who are worthy!",
   };
 
   const testObj2 = {
     category: 'mythical_weapons',
     name: 'gungnir',
     display_name: 'Gungnir',
-    description: 'Odin\'s spear. It supposedly doesn\'t miss...',
+    description: "Odin's spear. It supposedly doesn't miss...",
   };
 
   const testObj3 = {
@@ -28,7 +28,7 @@ describe('API routes for products', () => {
     name: 'adhesive_medical_strips',
     display_name: 'Adhesive Medical Strips',
     description:
-      'We can\'t use band-aid since that\'s a copyrighted compoany name, but that\'s pretty much what it is...',
+      "We can't use band-aid since that's a copyrighted compoany name, but that's pretty much what it is...",
   };
 
   beforeEach(async () => {
@@ -153,7 +153,7 @@ describe('API error routes for products', () => {
       throw 'dummy error';
     });
     const getOneRes = await agent.get(
-      `/api/v1/products/360noscope420blazeit!!!111`,
+      `/api/v1/products/360noscope420blazeit!!!111`
     );
     expect(getOneRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();

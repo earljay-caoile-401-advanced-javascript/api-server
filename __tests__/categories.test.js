@@ -145,7 +145,7 @@ describe('API error routes for categories', () => {
       throw 'dummy error';
     });
     const getOneRes = await agent.get(
-      `/api/v1/categories/360noscope420blazeit!!!111`,
+      `/api/v1/categories/360noscope420blazeit!!!111`
     );
     expect(getOneRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
