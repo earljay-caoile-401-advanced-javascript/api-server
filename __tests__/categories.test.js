@@ -6,7 +6,6 @@ const server = require('../lib/server.js');
 
 const agent = supergoose(server.apiServer);
 const categories = require('../lib/models/categories.js');
-
 const uuid = require('uuid').v4;
 
 console.log = jest.fn();
