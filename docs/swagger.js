@@ -8,7 +8,6 @@
 module.exports = (app) => {
   const expressSwagger = require('express-swagger-generator')(app);
   const sampleData = require('../data/db.json');
-
   const options = {
     swaggerDefinition: {
       info: {
