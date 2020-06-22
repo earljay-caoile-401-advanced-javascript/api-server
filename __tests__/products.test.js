@@ -8,6 +8,7 @@ console.log = jest.fn();
 console.error = jest.fn();
 
 describe('API routes for products', () => {
+  /*eslint-disable quotes*/
   const testObj1 = {
     category: 'mythical_weapons',
     name: 'mjolnir',
@@ -30,6 +31,7 @@ describe('API routes for products', () => {
     description:
       "We can't use band-aid since that's a copyrighted compoany name, but that's pretty much what it is...",
   };
+  /*eslint-enable quotes*/
 
   beforeEach(async () => {
     jest.spyOn(global.console, 'log');
@@ -152,9 +154,12 @@ describe('API error routes for products', () => {
     products.get = jest.fn(async () => {
       throw 'dummy error';
     });
+
+    /*eslint-disable comma-dangle*/
     const getOneRes = await agent.get(
       `/api/v1/products/360noscope420blazeit!!!111`
     );
+    /*eslint-disable quotes*/
     expect(getOneRes.statusCode).toBe(500);
     expect(console.error).toHaveBeenCalled();
     expect(getOneRes.body.error).toEqual('dummy error');
