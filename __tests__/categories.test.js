@@ -10,13 +10,13 @@ console.error = jest.fn();
 describe('API routes for categories', () => {
   const testObj1 = {
     name: 'mythical_weapons',
-    display_name: 'mythical weapons',
+    displayName: 'mythical weapons',
     description: 'smite thee!',
   };
 
   const testObj2 = {
     name: 'household_goods',
-    display_name: 'household goods',
+    displayName: 'household goods',
     description: 'stuff fo yo crib!',
   };
 
@@ -88,7 +88,7 @@ describe('API routes for categories', () => {
   it('can update a category', async () => {
     const editObj = {
       name: 'uber_weapons',
-      display_name: 'uber weapons',
+      displayName: 'uber weapons',
       description: 'cool beans',
     };
 

@@ -34,12 +34,12 @@ module.exports = (app) => {
         category_request: {
           properties: {
             name: { type: 'string' },
-            display_name: { type: 'string' },
+            displayName: { type: 'string' },
             description: { type: 'string' },
           },
           example: {
             name: sampleData.categories[0].name,
-            display_name: sampleData.categories[0].display_name,
+            displayName: sampleData.categories[0].displayName,
             description: sampleData.categories[0].description,
           },
           required: ['id', 'name'],
@@ -48,7 +48,7 @@ module.exports = (app) => {
           properties: {
             id: { type: 'string' },
             name: { type: 'string' },
-            display_name: { type: 'string' },
+            displayName: { type: 'string' },
             description: { type: 'string' },
             __v: { type: 'number' },
           },
@@ -75,13 +75,13 @@ module.exports = (app) => {
           properties: {
             category: { type: 'string' },
             name: { type: 'string' },
-            display_name: { type: 'string' },
+            displayName: { type: 'string' },
             description: { type: 'string' },
           },
           example: {
             category: sampleData.products[0].category,
             name: sampleData.products[0].name,
-            display_name: sampleData.products[0].display_name,
+            displayName: sampleData.products[0].displayName,
             description: sampleData.products[0].description,
           },
           required: ['category', 'name'],
@@ -91,7 +91,7 @@ module.exports = (app) => {
             id: { type: 'string' },
             category: { type: 'string' },
             name: { type: 'string' },
-            display_name: { type: 'string' },
+            displayName: { type: 'string' },
             description: { type: 'string' },
             __v: { type: 'number' },
           },
