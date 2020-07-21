@@ -6,32 +6,22 @@ const agent = supergoose(server.apiServer);
 const products = require('../lib/models/products/products-collection.js');
 console.log = jest.fn();
 console.error = jest.fn();
+const sampleData = require('../data/db.json');
 
 describe('API routes for products', () => {
-  /*eslint-disable quotes*/
-  const testObj1 = {
-    category: 'mythical_weapons',
-    name: 'mjolnir',
-    display_name: 'Mjolnir',
-    description:
-      "Thor's hammer. It can only be wielded by those who are worthy!",
-  };
+  const rawObj1 = sampleData.products[0];
+  const testObj1 = Object.keys(rawObj1)
+    .filter((key) => key !== '_id' && key !== '__v')
+    .reduce((res, key) => ((res[key] = rawObj1[key]), res), {});
 
-  const testObj2 = {
-    category: 'mythical_weapons',
-    name: 'gungnir',
-    display_name: 'Gungnir',
-    description: "Odin's spear. It supposedly doesn't miss...",
-  };
-
-  const testObj3 = {
-    category: 'health_house_baby',
-    name: 'adhesive_medical_strips',
-    display_name: 'Adhesive Medical Strips',
-    description:
-      "We can't use band-aid since that's a copyrighted compoany name, but that's pretty much what it is...",
-  };
-  /*eslint-enable quotes*/
+  const rawObj2 = sampleData.products[1];
+  const testObj2 = Object.keys(rawObj2)
+    .filter((key) => key !== '_id' && key !== '__v')
+    .reduce((res, key) => ((res[key] = rawObj2[key]), res), {});
+  const rawObj3 = sampleData.products[2];
+  const testObj3 = Object.keys(rawObj3)
+    .filter((key) => key !== '_id' && key !== '__v')
+    .reduce((res, key) => ((res[key] = rawObj3[key]), res), {});
 
   beforeEach(async () => {
     jest.spyOn(global.console, 'log');
@@ -77,7 +67,7 @@ describe('API routes for products', () => {
 
     for (let i in getBodyRes) {
       Object.keys(testObj1).forEach((key) => {
-        expect(createObj1[key]).toEqual(getBodyRes[i][key]);
+        expect(createObj1[key]).toBe(getBodyRes[i][key]);
       });
     }
   });
@@ -91,14 +81,14 @@ describe('API routes for products', () => {
     expect(getOneRes.body._id.toString()).toBe(createRes1._id.toString());
 
     Object.keys(testObj1).forEach((key) => {
-      expect(getOneRes.body[key]).toEqual(createRes1[key]);
+      expect(getOneRes.body[key]).toBe(createRes1[key]);
     });
   });
 
   it('can update a product', async () => {
     const editObj = {
       name: 'uber_weapons',
-      display_name: 'uber weapons',
+      displayName: 'uber weapons',
       description: 'cool beans',
     };
 
